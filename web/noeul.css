@@ -1,0 +1,251 @@
+/*!
+ * noeul.css | MIT License
+ * A classless stylesheet for long-form documents.
+ * Usage: <link rel="stylesheet" href="noeul.css">
+ * Theme follows the OS. Force it with <html data-theme="light|dark">.
+ * Fonts: Source Serif 4, IBM Plex Mono (Google Fonts), Pretendard (jsDelivr), all SIL OFL 1.1.
+ * Palette: derived from https://colorhunt.co/palette/fcf8e8d4e2d4ecb390df7861
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css");
+
+/* Variables: light-dark(light, dark) */
+:root {
+  color-scheme: light dark;
+
+  /* palette:start (generated) */
+  --bg1:         light-dark(#fcf8e8, #16140f);
+  --bg2:         light-dark(#f5efda, #110f0b);
+  --code-bg:     light-dark(#f4edd6, #25221b);
+  --code-border: light-dark(#ddd4b8, #3d392e);
+  --ui1:         light-dark(#e7dfc6, #2b2820);
+  --ui2:         light-dark(#d6cdaf, #38342a);
+  --ui3:         light-dark(#bfb595, #4e493c);
+  --tx1:         light-dark(#1e1b14, #f3eedc);
+  --tx2:         light-dark(#48433a, #c9c2ab);
+  --tx3:         light-dark(#6c6556, #908977);
+  --ax1:         light-dark(#9c5340, #ec9078);
+  --ax2:         light-dark(#83432f, #f2a894);
+  --ax3:         light-dark(#df7861, #ecb390);
+  --hl1:         light-dark(#d4e2d4, #3d4b3e);
+  --caramel:     light-dark(#83622a, #ecb390);
+  --brown:       light-dark(#5b4636, #b3a98c);
+  --red:         light-dark(#a54347, #f3898a);
+  --green:       light-dark(#4c7344, #90ba87);
+  --yellow:      light-dark(#7e6419, #c5a963);
+  --blue:        light-dark(#416c90, #84b2d9);
+  --magenta:     light-dark(#8a5373, #d497b9);
+  --cyan:        light-dark(#347373, #7abab9);
+  /* palette:end */
+
+  /* Code roles */
+  --syn-comment:  var(--tx3);
+  --syn-keyword:  var(--ax1);
+  --syn-string:   var(--brown);
+  --syn-function: var(--caramel);
+  --syn-number:   var(--caramel);
+  --syn-type:     var(--tx2);
+  --syn-punct:    var(--tx2);
+
+  /* Type and layout */
+  --font-body: "Source Serif 4", "Pretendard Variable", Georgia, serif;
+  --font-mono: "IBM Plex Mono", "Pretendard Variable", ui-monospace, monospace;
+  --measure: 42rem;
+  --radius: 0.375rem;
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"]  { color-scheme: dark; }
+
+/* Base */
+*, ::before, ::after { box-sizing: border-box; }
+
+body {
+  box-sizing: content-box;
+  max-inline-size: var(--measure);
+  margin: 0 auto;
+  padding: 3rem 1rem 5rem;
+  background: var(--bg1);
+  color: var(--tx1);
+  font: 400 1.0625rem/1.65 var(--font-body);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--hl1); }
+:focus-visible { outline: 2px solid var(--ax3); outline-offset: 2px; }
+
+/* Flow */
+:is(p, ul, ol, dl, blockquote, pre, table, figure, details) { margin-block: 0 1rem; }
+p { text-wrap: pretty; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+h1 { margin-block: 3rem 1rem; font-size: 1.75em; }
+h2 { margin-block: 3rem 0.75rem; font-size: 1.375em; }
+h3 { margin-block: 2rem 0.5rem; font-size: 1.125em; }
+h4, h5, h6 { margin-block: 1.5rem 0.5rem; font-size: 1em; font-weight: 600; }
+/* A heading right under another heading stays close to it */
+:is(h1, h2, h3, h4, h5, h6) + :is(h2, h3, h4, h5, h6) { margin-block-start: 1rem; }
+body > :first-child, header > :first-child { margin-block-start: 0; }
+:is(blockquote, li, dd, td, th) > :last-child { margin-block-end: 0; }
+
+hr { margin-block: 2.5rem; border: 0; border-block-start: 1px solid var(--ui1); }
+
+/* Inline */
+a {
+  color: var(--ax1);
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-underline-offset: 0.2em;
+}
+a:hover { color: var(--ax2); text-decoration-color: currentColor; }
+strong, b { font-weight: 600; }
+small { font-size: 0.875em; }
+sub, sup { line-height: 0; }
+mark { padding-inline: 0.1em; border-radius: 0.2em; background: var(--hl1); color: inherit; }
+
+/* Code */
+code, kbd, pre { font-family: var(--font-mono); font-size: 0.875em; }
+:not(pre) > code, kbd {
+  padding: 0.1em 0.35em;
+  border: 1px solid var(--code-border);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+}
+kbd { border-block-end-width: 2px; }
+pre {
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: calc(var(--radius) * 1.5);
+  background: var(--code-bg);
+  line-height: 1.5;
+  word-break: normal;
+}
+pre code { font-size: inherit; }
+
+/* Syntax: Prism, highlight.js, Pandoc */
+:is(.token.comment, .token.prolog, .token.doctype, .hljs-comment, .hljs-quote),
+pre code span:is(.co, .do, .an, .cv, .in) { color: var(--syn-comment); font-style: italic; }
+:is(.token.keyword, .token.atrule, .token.important, .token.selector, .hljs-keyword, .hljs-selector-tag, .hljs-selector-class, .hljs-meta),
+pre code span:is(.kw, .cf, .im) { color: var(--syn-keyword); }
+:is(.token.string, .token.char, .token.attr-value, .token.regex, .hljs-string, .hljs-regexp),
+pre code span:is(.st, .ch, .vs, .ss) { color: var(--syn-string); }
+:is(.token.function, .token.attr-name, .token.property, .hljs-title, .hljs-section, .hljs-attr, .hljs-attribute),
+pre code span:is(.fu, .bu) { color: var(--syn-function); }
+:is(.token.number, .token.boolean, .token.constant, .hljs-number, .hljs-literal),
+pre code span:is(.dv, .bn, .fl, .cn) { color: var(--syn-number); }
+:is(.token.class-name, .token.builtin, .token.tag, .hljs-type, .hljs-built_in, .hljs-name),
+pre code span:is(.dt) { color: var(--syn-type); }
+:is(.token.punctuation, .token.operator, .hljs-punctuation, .hljs-operator),
+pre code span:is(.op) { color: var(--syn-punct); }
+
+/* Lists */
+ul, ol { padding-inline-start: 1.5em; }
+li > :is(ul, ol) { margin-block: 0; }
+li::marker { color: var(--tx3); }
+li:has(> input[type="checkbox"]) { list-style: none; }
+li > input[type="checkbox"] { margin: 0 0.5em 0 -1.4em; accent-color: var(--ax3); }
+
+/* Quote */
+blockquote {
+  margin-inline: 0;
+  padding-inline-start: 1rem;
+  border-inline-start: 2px solid var(--ui3);
+  color: var(--tx2);
+}
+
+/* Table */
+table {
+  display: block;
+  max-inline-size: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.9375em;
+  font-variant-numeric: tabular-nums;
+}
+th, td { padding: 0.4em 0.75em; border: 1px solid var(--ui1); text-align: start; vertical-align: top; }
+th { background: var(--bg2); font-weight: 600; }
+
+/* Media */
+img, video, svg { max-inline-size: 100%; block-size: auto; }
+figure { margin-inline: 0; }
+figcaption { margin-block-start: 0.5rem; color: var(--tx3); font-size: 0.875em; }
+
+/* Document header: <header><h1>Title</h1><dl>…</dl></header> */
+header dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem 1.5rem;
+  margin-block-end: 1.5rem;
+  padding-block-end: 1rem;
+  border-block-end: 1px solid var(--ui1);
+  font-size: 0.9375em;
+}
+header dt { color: var(--tx3); }
+header dd { margin: 0; min-inline-size: 0; }
+
+/* Table of contents: nested lists show the hierarchy */
+nav { font-size: 0.9375em; }
+nav :is(ol, ul) { list-style: none; margin: 0; padding: 0; }
+nav > :is(ol, ul) { margin-block-end: 1rem; }
+nav li > :is(ol, ul) {
+  margin: 0.125rem 0 0.375rem 0.25rem;
+  padding-inline-start: 0.875rem;
+  border-inline-start: 1px solid var(--ui2);
+}
+nav a { color: var(--tx1); text-decoration: none; }
+nav li li a { color: var(--tx2); }
+nav a:hover { color: var(--ax1); }
+nav a[aria-current] { color: var(--ax1); font-weight: 600; }
+
+/* Side table of contents: a top-level <nav> moves into the left margin on wide screens */
+@media screen and (min-width: 82rem) {
+  body > nav {
+    position: fixed;
+    inset-block-start: 3rem;
+    inset-inline-start: calc(50vw - var(--measure) / 2 - 18rem);
+    inline-size: 15rem;
+    max-block-size: calc(100vh - 6rem);
+    overflow-y: auto;
+    font-size: 0.875em;
+  }
+  body > nav > :is(h2, h3) {
+    margin-block: 0 0.75rem;
+    color: var(--tx3);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+}
+
+/* Footnotes (Pandoc, markdown-it) */
+.footnotes {
+  margin-block-start: 3rem;
+  padding-block-start: 1rem;
+  border-block-start: 1px solid var(--ui1);
+  color: var(--tx2);
+  font-size: 0.875em;
+}
+.footnotes hr { display: none; }
+.footnotes li + li { margin-block-start: 0.375rem; }
+.footnotes :target { background: var(--hl1); }
+
+/* Tag: <span class="tag">#css</span> (Prism's .token.tag excluded) */
+.tag:not(.token) {
+  padding-inline: 0.6em;
+  border: 1px solid var(--ui2);
+  border-radius: 999px;
+  color: var(--tx2);
+  font-size: 0.8em;
+  text-decoration: none;
+}
+
+@media print {
+  :root { color-scheme: light; }
+  body { max-inline-size: none; padding: 0; }
+  :is(pre, table, figure) { break-inside: avoid; }
+}
