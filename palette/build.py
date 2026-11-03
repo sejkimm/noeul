@@ -1,4 +1,4 @@
-"""Generate the CSS color block, Neovim palette, and Ghostty themes from tokens.json."""
+"""Generate the CSS color block, Neovim palette, Ghostty and pi themes from tokens.json."""
 
 import json
 from pathlib import Path
@@ -81,13 +81,91 @@ def write_ghostty(palette: dict) -> None:
         (ROOT / "ghostty" / f"noeul-{mode}").write_text("\n".join(lines) + "\n")
 
 
+def pi_colors(c: dict) -> dict[str, str]:
+    """Map Noeul tokens to pi theme roles, following the Neovim highlight choices."""
+    return {
+        "accent": c["ax1"],
+        "border": c["ui3"],
+        "borderAccent": c["ax3"],
+        "borderMuted": c["ui2"],
+        "success": c["green"],
+        "error": c["red"],
+        "warning": c["yellow"],
+        "muted": c["tx2"],
+        "dim": c["tx3"],
+        "text": c["tx1"],
+        "thinkingText": c["tx3"],
+        "selectedBg": c["ui1"],
+        "scrollbarTrack": c["ui1"],
+        "scrollbarThumb": c["ui3"],
+        "searchMatchBg": c["search"],
+        "searchMatchText": c["tx1"],
+        "userMessageBg": c["code_bg"],
+        "userMessageText": c["tx1"],
+        "customMessageBg": c["bg2"],
+        "customMessageText": c["tx2"],
+        "customMessageLabel": c["caramel"],
+        "toolPendingBg": c["code_bg"],
+        "toolSuccessBg": c["diff_add"],
+        "toolErrorBg": c["diff_del"],
+        "toolTitle": c["tx1"],
+        "toolOutput": c["tx2"],
+        "mdHeading": c["ax1"],
+        "mdLink": c["ax1"],
+        "mdLinkUrl": c["tx3"],
+        "mdCode": c["brown"],
+        "mdCodeBlock": c["tx1"],
+        "mdCodeBlockBorder": c["ui3"],
+        "mdQuote": c["tx2"],
+        "mdQuoteBorder": c["ui3"],
+        "mdHr": c["ui3"],
+        "mdListBullet": c["tx3"],
+        "toolDiffAdded": c["green"],
+        "toolDiffRemoved": c["red"],
+        "toolDiffContext": c["tx3"],
+        "syntaxComment": c["tx3"],
+        "syntaxKeyword": c["ax1"],
+        "syntaxFunction": c["caramel"],
+        "syntaxVariable": c["tx1"],
+        "syntaxString": c["brown"],
+        "syntaxNumber": c["caramel"],
+        "syntaxType": c["tx2"],
+        "syntaxOperator": c["tx2"],
+        "syntaxPunctuation": c["tx2"],
+        "thinkingOff": c["ui3"],
+        "thinkingMinimal": c["tx3"],
+        "thinkingLow": c["blue"],
+        "thinkingMedium": c["magenta"],
+        "thinkingHigh": c["ax3"],
+        "thinkingXhigh": c["ax1"],
+        "thinkingMax": c["red"],
+        "bashMode": c["green"],
+    }
+
+
+def write_pi(palette: dict) -> None:
+    for mode in MODES:
+        c = palette[mode]
+        theme = {
+            "$schema": "https://pi.dev/schemas/theme.schema.json",
+            "name": f"noeul-{mode}",
+            "appearance": mode,
+            "colors": pi_colors(c),
+            "export": {"pageBg": c["bg1"], "cardBg": c["code_bg"], "infoBg": c["search"]},
+        }
+        path = ROOT / "pi" / f"noeul-{mode}.json"
+        path.parent.mkdir(exist_ok=True)
+        path.write_text(json.dumps(theme, indent=2) + "\n")
+
+
 def main() -> None:
     palette = load_palette()
     write_css(palette)
     write_lua(palette)
     write_ghostty(palette)
+    write_pi(palette)
     print(
-        "wrote web/noeul.css, lua/noeul/palette.lua, ghostty/noeul-light, ghostty/noeul-dark"
+        "wrote web/noeul.css, lua/noeul/palette.lua, ghostty/noeul-{light,dark}, pi/noeul-{light,dark}.json"
     )
 
 

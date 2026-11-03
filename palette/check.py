@@ -1,8 +1,11 @@
-"""Print contrast ratios against bg1 and fail if a text color is below WCAG AA (4.5:1)."""
+"""Print contrast ratios against bg1 and fail if a text color is below WCAG AA (4.5:1).
+
+Also checks pi's body text on every pi panel background.
+"""
 
 import sys
 
-from build import load_palette
+from build import load_palette, pi_colors
 from oklch import contrast
 
 MIN_TEXT = 4.5
@@ -19,6 +22,23 @@ TEXT = (
     *(f"bright_{h}" for h in HUES),
 )
 DECORATIVE = ("ui3", "ax3")  # line numbers, rules, cursor, focus ring: dim on purpose
+PI_TEXT_ON = {
+    "text": ("selectedBg",),
+    "userMessageText": ("userMessageBg",),
+    "toolTitle": ("toolPendingBg", "toolSuccessBg", "toolErrorBg"),
+}
+
+
+def pi_failures(palette: dict) -> list[str]:
+    failures = []
+    for mode in ("light", "dark"):
+        c = pi_colors(palette[mode])
+        for fg, surfaces in PI_TEXT_ON.items():
+            for surface in surfaces:
+                ratio = contrast(c[fg], c[surface])
+                if ratio < MIN_TEXT:
+                    failures.append(f"pi {mode} {fg} on {surface} ({ratio:.1f})")
+    return failures
 
 
 def main() -> int:
@@ -33,6 +53,7 @@ def main() -> int:
         print(f"{name:<16}{ratios[0]:>8.1f}{ratios[1]:>8.1f}{note}")
         if name in TEXT and min(ratios) < MIN_TEXT:
             failures.append(name)
+    failures += pi_failures(palette)
     if failures:
         print(f"FAIL: below {MIN_TEXT}:1: {', '.join(failures)}")
         return 1

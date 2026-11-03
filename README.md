@@ -1,12 +1,13 @@
 # Noeul
 
-> A design system for Web, Ghostty and Neovim
+> A design system for Web, Ghostty, Neovim and pi
 
 | | Light | Dark |
 | --- | --- | --- |
 | Neovim | ![Neovim, markdown in the light theme](docs/screenshots/nvim-markdown-light.png) | ![Neovim, markdown in the dark theme](docs/screenshots/nvim-markdown-dark.png) |
 | Neovim (Python) | ![Neovim, Python in the light theme](docs/screenshots/nvim-python-light.png) | ![Neovim, Python in the dark theme](docs/screenshots/nvim-python-dark.png) |
 | Ghostty | ![Ghostty, git output and the 16-color palette in the light theme](docs/screenshots/ghostty-light.png) | ![Ghostty, git output and the 16-color palette in the dark theme](docs/screenshots/ghostty-dark.png) |
+| pi | ![pi, a session with a tool call and a Markdown reply in the light theme](docs/screenshots/pi-light.png) | ![pi, a session with a tool call and a Markdown reply in the dark theme](docs/screenshots/pi-dark.png) |
 | Web | ![noeul.css, a markdown document in the light theme](docs/screenshots/css-light.png) | ![noeul.css, a markdown document in the dark theme](docs/screenshots/css-dark.png) |
 
 ## Changelog
@@ -38,6 +39,15 @@ mkdir -p ~/.config/ghostty/themes
 cp ghostty/noeul-* ~/.config/ghostty/themes/
 # in ~/.config/ghostty/config:
 # theme = light:noeul-light,dark:noeul-dark
+```
+
+[pi](https://pi.dev):
+
+```sh
+mkdir -p ~/.pi/agent/themes
+cp pi/noeul-*.json ~/.pi/agent/themes/
+# in ~/.pi/agent/settings.json:
+# "theme": "noeul-light/noeul-dark"
 ```
 
 Web:
