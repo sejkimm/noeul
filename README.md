@@ -1,6 +1,6 @@
 # Noeul
 
-> A design system for Web, Ghostty, Neovim and pi
+> A design system for Web, Ghostty, Neovim, pi and Claude Desktop
 
 | | Light | Dark |
 | --- | --- | --- |
@@ -50,6 +50,14 @@ cp pi/noeul-*.json ~/.pi/agent/themes/
 # "theme": "noeul-light/noeul-dark"
 ```
 
+Claude Desktop, as a mod:
+
+```sh
+ln -s "$PWD/claude-desktop" ~/.claude/skills/cc-theme-noeul
+```
+
+New sessions start in the theme. `/cc-theme-noeul` puts it back on and `/cc-theme-off` takes it off.
+
 Web:
 
 ```html
@@ -65,6 +73,7 @@ The theme follows the OS. Force it with `<html data-theme="light|dark">`.
 
 ## License
 
+- `claude-desktop/hooks/make-colors.js` and `make-colors.d.ts` are Anthropic's theme helper for Claude Code mods
 - [Source Serif 4](https://github.com/adobe-fonts/source-serif) by Adobe, SIL Open Font License 1.1
 - [IBM Plex Mono](https://github.com/IBM/plex) by IBM, SIL Open Font License 1.1
 - [Pretendard](https://github.com/orioncactus/pretendard) by Kil Hyung-jin, SIL Open Font License 1.1
