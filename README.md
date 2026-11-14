@@ -51,6 +51,15 @@ cp zsh/noeul.zsh-theme ~/.oh-my-zsh/custom/themes/
 
 The prompt expects a truecolor terminal with the Noeul palette.
 
+[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) styles:
+
+```sh
+mkdir -p ~/.config/zsh
+cp zsh/noeul-syntax-highlighting.zsh ~/.config/zsh/
+# in ~/.zshrc:
+# source ~/.config/zsh/noeul-syntax-highlighting.zsh
+```
+
 [pi](https://pi.dev):
 
 ```sh
