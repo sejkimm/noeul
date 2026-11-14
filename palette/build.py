@@ -24,7 +24,8 @@ def load_palette() -> dict[str, dict]:
                 rule["bright_l"], hue["c"] * rule["bright_c"], hue["h"]
             )
         for name, tint in tokens["tints"].items():
-            colors[name] = oklch_hex(tint["l"][mode], tint["c"], tint["h"])
+            chroma = tint["c"][mode] if isinstance(tint["c"], dict) else tint["c"]
+            colors[name] = oklch_hex(tint["l"][mode], chroma, tint["h"])
         colors["ansi"] = [colors[name] for name in tokens["ansi"]]
         palette[mode] = colors
     return palette
@@ -35,7 +36,7 @@ def css_block(palette: dict) -> str:
     names = [
         n
         for n in light
-        if n != "ansi" and not n.startswith(("bright_", "diff_", "search"))
+        if n != "ansi" and not n.startswith(("bright_", "diff_", "search", "panel_"))
     ]
     props = {n: "--" + n.replace("_", "-") + ":" for n in names}
     width = max(len(p) for p in props.values()) + 1
@@ -106,10 +107,10 @@ def pi_colors(c: dict) -> dict[str, str]:
         "customMessageText": c["tx2"],
         "customMessageLabel": c["caramel"],
         "toolPendingBg": c["code_bg"],
-        "toolSuccessBg": c["diff_add"],
-        "toolErrorBg": c["diff_del"],
+        "toolSuccessBg": c["panel_ok"],
+        "toolErrorBg": c["panel_err"],
         "toolTitle": c["tx1"],
-        "toolOutput": c["tx2"],
+        "toolOutput": c["tx3"],
         "mdHeading": c["ax1"],
         "mdLink": c["ax1"],
         "mdLinkUrl": c["tx3"],
@@ -135,7 +136,7 @@ def pi_colors(c: dict) -> dict[str, str]:
         "thinkingOff": c["ui3"],
         "thinkingMinimal": c["tx3"],
         "thinkingLow": c["blue"],
-        "thinkingMedium": c["magenta"],
+        "thinkingMedium": c["yellow"],
         "thinkingHigh": c["ax3"],
         "thinkingXhigh": c["ax1"],
         "thinkingMax": c["red"],

@@ -26,6 +26,7 @@ PI_TEXT_ON = {
     "text": ("selectedBg",),
     "userMessageText": ("userMessageBg",),
     "toolTitle": ("toolPendingBg", "toolSuccessBg", "toolErrorBg"),
+    "toolOutput": ("toolPendingBg", "toolSuccessBg", "toolErrorBg"),
 }
 
 

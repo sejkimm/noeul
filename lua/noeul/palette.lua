@@ -34,6 +34,8 @@ return {
     diff_change = "#dbecfc",
     diff_text = "#b8daf8",
     search = "#e9d6a7",
+    panel_ok = "#f8f3e1",
+    panel_err = "#fbeae6",
     ansi = { "#e7dfc6", "#a54347", "#4c7344", "#7e6419", "#416c90", "#8a5373", "#347373", "#48433a", "#6c6556", "#8f2932", "#365e2d", "#674f00", "#29567b", "#753d5e", "#155e5e", "#1e1b14" },
   },
   dark = {
@@ -70,6 +72,8 @@ return {
     diff_change = "#1c2935",
     diff_text = "#1f3c54",
     search = "#564519",
+    panel_ok = "#1c1a15",
+    panel_err = "#2a1c1a",
     ansi = { "#2b2820", "#f3898a", "#90ba87", "#c5a963", "#84b2d9", "#d497b9", "#7abab9", "#c9c2ab", "#908977", "#ffa5a4", "#a7ce9e", "#d8be7e", "#9cc6eb", "#e7adcc", "#93cecd", "#f3eedc" },
   },
 }
