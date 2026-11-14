@@ -1,6 +1,6 @@
 # Noeul
 
-> A design system for Web, Ghostty, Neovim, pi and Claude Desktop
+> A design system for Web, Ghostty, zsh, Neovim, pi and Claude Desktop
 
 | | Light | Dark |
 | --- | --- | --- |
@@ -40,6 +40,16 @@ cp ghostty/noeul-* ~/.config/ghostty/themes/
 # in ~/.config/ghostty/config:
 # theme = light:noeul-light,dark:noeul-dark
 ```
+
+zsh, as an [oh-my-zsh](https://ohmyz.sh) theme:
+
+```sh
+cp zsh/noeul.zsh-theme ~/.oh-my-zsh/custom/themes/
+# in ~/.zshrc:
+# ZSH_THEME="noeul"
+```
+
+The prompt expects a truecolor terminal with the Noeul palette.
 
 [pi](https://pi.dev):
 
